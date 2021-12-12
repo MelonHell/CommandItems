@@ -110,7 +110,7 @@ public class CommandItemManager implements Listener {
         if (itemMeta == null)
             return;
 
-        String command = new NBTItem(event.getItem()).getString("command");
+        String command = new NBTItem(event.getItem()).getOrCreateCompound("cmdi").getString("command");
         if (command == null)
             return;
 
@@ -138,7 +138,7 @@ public class CommandItemManager implements Listener {
             return;
         }
 
-        Map<String, String> params = new NBTItem(event.getItem()).getObject("params", Map.class);
+        Map<String, String> params = new NBTItem(event.getItem()).getOrCreateCompound("cmdi").getObject("params", Map.class);
 
         if (itemDefinition.isConsumed()) {
             ItemStack[] contents = event.getPlayer().getInventory().getContents();

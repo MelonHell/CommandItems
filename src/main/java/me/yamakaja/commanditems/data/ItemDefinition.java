@@ -2,6 +2,7 @@ package me.yamakaja.commanditems.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Preconditions;
+import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTItem;
 import me.yamakaja.commanditems.data.action.Action;
 import me.yamakaja.commanditems.util.EnchantmentGlow;
@@ -79,13 +80,12 @@ public class ItemDefinition {
                 skullMeta.setOwningPlayer(player);
             }
 
-            NBTItem nbtItem = new NBTItem(stack);
-            nbtItem.setString("command", key);
-            nbtItem.setObject("params", params);
-//            NMSUtil.setNBTString(meta, "command", key);
-//            NMSUtil.setNBTStringMap(meta, "params", params);
-
             stack.setItemMeta(meta);
+
+            NBTItem nbtItem = new NBTItem(stack);
+            nbtItem.getOrCreateCompound("cmdi").setString("command", key);
+            nbtItem.getOrCreateCompound("cmdi").setObject("params", params);
+            nbtItem.applyNBT(stack);
 
             if (glow)
                 stack.addEnchantment(EnchantmentGlow.getGlow(), 1);
