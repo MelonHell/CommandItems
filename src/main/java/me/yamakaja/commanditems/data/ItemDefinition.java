@@ -2,10 +2,10 @@ package me.yamakaja.commanditems.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Preconditions;
-import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTItem;
 import me.yamakaja.commanditems.data.action.Action;
 import me.yamakaja.commanditems.util.EnchantmentGlow;
+import me.yamakaja.commanditems.util.HeadUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -47,6 +47,9 @@ public class ItemDefinition {
         @JsonProperty(defaultValue = "")
         private String skullUser;
 
+        @JsonProperty(defaultValue = "")
+        private String skullTexture;
+
         public ItemStack build(String key, Map<String, String> params) {
             Preconditions.checkNotNull(this.type, "No material specified!");
 
@@ -66,6 +69,10 @@ public class ItemDefinition {
             meta.setUnbreakable(unbreakable);
             if (customModelData != null)
                 meta.setCustomModelData(customModelData);
+
+            if (meta instanceof SkullMeta && !skullTexture.isEmpty()) {
+                HeadUtil.setTexture((SkullMeta) meta, null, skullTexture);
+            }
 
             if (this.type == Material.PLAYER_HEAD && skullUser != null && !skullUser.isEmpty()) {
                 SkullMeta skullMeta = (SkullMeta) meta;
