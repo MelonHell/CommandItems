@@ -25,7 +25,7 @@ public class CommandItems extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        new Metrics(this);
+        new Metrics(this, 13562);
 
         boolean debug = System.getProperty("me.yamakaja.debug") != null;
         this.saveResource("config.yml", debug);
