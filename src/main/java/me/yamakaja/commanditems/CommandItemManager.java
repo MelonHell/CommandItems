@@ -111,7 +111,7 @@ public class CommandItemManager implements Listener {
             return;
 
         String command = new NBTItem(event.getItem()).getOrCreateCompound("cmdi").getString("command");
-        if (command == null)
+        if (command == null || command.isEmpty())
             return;
 
         ItemDefinition itemDefinition = this.plugin.getConfigManager().getConfig().getItems().get(command);
