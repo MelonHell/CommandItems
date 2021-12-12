@@ -30,13 +30,15 @@ repositories {
 
     maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
     maven { url "https://repo.codemc.org/repository/maven-public/" }
-    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
+    maven { url "https://repo.aikar.co/content/groups/aikar/" }
 }
 
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT"
 
-    compile 'org.bstats:bstats-bukkit:2.2.1'
+    compile 'de.tr7zw:item-nbt-api-plugin:2.8.0'
+
+    compile "org.bstats:bstats-bukkit:2.2.1"
 
     compile "co.aikar:acf-paper:0.5.0-SNAPSHOT"
 
@@ -46,6 +48,8 @@ dependencies {
 
 shadowJar {
     baseName = 'CommandItems'
+
+    relocate 'de.tr7zw', 'me.yamakaja.commanditems.lib.de.tr7zw'
 
     relocate 'org.bstats', 'me.yamakaja.commanditems.lib.org.bstats'
 

@@ -2,9 +2,9 @@ package me.yamakaja.commanditems.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Preconditions;
+import de.tr7zw.nbtapi.NBTItem;
 import me.yamakaja.commanditems.data.action.Action;
 import me.yamakaja.commanditems.util.EnchantmentGlow;
-import me.yamakaja.commanditems.util.NMSUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -79,8 +79,11 @@ public class ItemDefinition {
                 skullMeta.setOwningPlayer(player);
             }
 
-            NMSUtil.setNBTString(meta, "command", key);
-            NMSUtil.setNBTStringMap(meta, "params", params);
+            NBTItem nbtItem = new NBTItem(stack);
+            nbtItem.setString("command", key);
+            nbtItem.setObject("params", params);
+//            NMSUtil.setNBTString(meta, "command", key);
+//            NMSUtil.setNBTStringMap(meta, "params", params);
 
             stack.setItemMeta(meta);
 

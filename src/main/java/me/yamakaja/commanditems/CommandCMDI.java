@@ -5,6 +5,7 @@ import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import co.aikar.commands.contexts.OnlinePlayer;
 import com.google.common.collect.Maps;
+import de.tr7zw.nbtapi.NBTItem;
 import me.yamakaja.commanditems.data.ItemDefinition;
 import me.yamakaja.commanditems.data.action.ActionMathExpr;
 import me.yamakaja.commanditems.util.NMSUtil;
@@ -96,12 +97,12 @@ public class CommandCMDI extends BaseCommand {
 
         ItemMeta itemMeta = itemInMainHand.getItemMeta();
         String command;
-        if (itemMeta == null || (command = NMSUtil.getNBTString(itemMeta, "command")) == null) {
+        if (itemMeta == null || (command = new NBTItem(itemInMainHand).getString("command")) == null) {
             player.sendMessage(ChatColor.RED + "This is not a command item!");
             return;
         }
 
-        Map<String, String> params = NMSUtil.getNBTStringMap(itemMeta, "params");
+        Map<String, String> params = new NBTItem(itemInMainHand).getObject("params", Map.class);
 
         player.sendMessage(ChatColor.AQUA + "===========================");
         player.sendMessage(ChatColor.AQUA + "  Command: " + ChatColor.GOLD + command);

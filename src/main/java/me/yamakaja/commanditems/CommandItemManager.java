@@ -3,9 +3,9 @@ package me.yamakaja.commanditems;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
+import de.tr7zw.nbtapi.NBTItem;
 import me.yamakaja.commanditems.data.ItemDefinition;
 import me.yamakaja.commanditems.util.CommandItemsI18N.MsgKey;
-import me.yamakaja.commanditems.util.NMSUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -110,7 +110,7 @@ public class CommandItemManager implements Listener {
         if (itemMeta == null)
             return;
 
-        String command = NMSUtil.getNBTString(itemMeta, "command");
+        String command = new NBTItem(event.getItem()).getString("command");
         if (command == null)
             return;
 
@@ -138,7 +138,7 @@ public class CommandItemManager implements Listener {
             return;
         }
 
-        Map<String, String> params = NMSUtil.getNBTStringMap(itemMeta, "params");
+        Map<String, String> params = new NBTItem(event.getItem()).getObject("params", Map.class);
 
         if (itemDefinition.isConsumed()) {
             ItemStack[] contents = event.getPlayer().getInventory().getContents();
