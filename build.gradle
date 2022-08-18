@@ -1,5 +1,5 @@
 group 'me.yamakaja.commanditems'
-version '2.4.5'
+version '2.4.7'
 
 buildscript {
     repositories {
@@ -36,7 +36,7 @@ repositories {
 dependencies {
     compileOnly "org.spigotmc:spigot:1.16.5-R0.1-SNAPSHOT"
 
-    compile 'de.tr7zw:item-nbt-api-plugin:2.10.0-SNAPSHOT'
+    compileOnly 'de.tr7zw:item-nbt-api-plugin:2.10.0-SNAPSHOT'
 
     compile "org.bstats:bstats-bukkit:2.2.1"
 
@@ -48,8 +48,6 @@ dependencies {
 
 shadowJar {
     baseName = 'CommandItems'
-
-    relocate 'de.tr7zw', 'me.yamakaja.commanditems.lib.de.tr7zw'
 
     relocate 'org.bstats', 'me.yamakaja.commanditems.lib.org.bstats'
 
