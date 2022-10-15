@@ -8,6 +8,7 @@ import me.yamakaja.commanditems.data.ItemDefinition;
 import me.yamakaja.commanditems.util.CommandItemsI18N.MsgKey;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -103,7 +104,7 @@ public class CommandItemManager implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
             return;
 
-        if (event.getItem() == null)
+        if (event.getItem() == null || event.getItem().getType() == Material.AIR)
             return;
 
         ItemMeta itemMeta = event.getItem().getItemMeta();
