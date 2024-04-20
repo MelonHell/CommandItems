@@ -7,7 +7,6 @@ import me.yamakaja.commanditems.data.ItemDefinition;
 import me.yamakaja.commanditems.interpreter.ItemExecutor;
 import me.yamakaja.commanditems.parser.ConfigManager;
 import me.yamakaja.commanditems.util.CommandItemsI18N;
-import me.yamakaja.commanditems.util.EnchantmentGlow;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -66,8 +65,6 @@ public class CommandItems extends JavaPlugin {
 
         this.executor = new ItemExecutor(this);
         this.commandItemManager = new CommandItemManager(this);
-
-        EnchantmentGlow.getGlow();
     }
 
     public ConfigManager getConfigManager() {
