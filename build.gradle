@@ -3,18 +3,15 @@ version '2.4.7'
 
 buildscript {
     repositories {
-        jcenter()
+        gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.0'
+        classpath 'com.github.johnrengelman:shadow:8.1.1'
     }
 }
 
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'java'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 processResources {
     filesMatching("**/plugin.yml") {
@@ -24,41 +21,45 @@ processResources {
     }
 }
 
+tasks.withType(JavaCompile) {
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
+}
+
 repositories {
     mavenCentral()
     mavenLocal()
 
-    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
     maven { url "https://repo.codemc.org/repository/maven-public/" }
     maven { url "https://repo.aikar.co/content/groups/aikar/" }
+    maven { url "https://repo.papermc.io/repository/maven-public/" }
 }
 
 dependencies {
-    compileOnly "org.spigotmc:spigot:1.16.5-R0.1-SNAPSHOT"
+    compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
 
     compileOnly 'de.tr7zw:item-nbt-api-plugin:2.10.0-SNAPSHOT'
 
-    compile "org.bstats:bstats-bukkit:2.2.1"
+    implementation "org.bstats:bstats-bukkit:2.2.1"
 
-    compile "co.aikar:acf-paper:0.5.0-SNAPSHOT"
+    implementation "co.aikar:acf-paper:0.5.0-SNAPSHOT"
 
-    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.0"
-    compile "com.fasterxml.jackson.core:jackson-databind:2.9.0"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.0"
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.9.0"
 }
 
 shadowJar {
-    baseName = 'CommandItems'
+    archiveBaseName.set('CommandItems')
 
     relocate 'org.bstats', 'me.yamakaja.commanditems.lib.org.bstats'
-
     relocate 'co.aikar.commands', 'me.yamakaja.commanditems.lib.co.aikar.commands'
     relocate 'org.intellij', 'me.yamakaja.commanditems.lib.org.intellij'
     relocate 'org.jetbrains', 'me.yamakaja.commanditems.lib.org.jetbrains'
     relocate 'net.jodah', 'me.yamakaja.commanditems.lib.net.jodah'
-
     relocate 'org.yaml.snakeyaml', 'me.yamakaja.commanditems.lib.org.yaml.snakeyaml'
     relocate 'com.fasterxml', 'me.yamakaja.commanditems.lib.com.fasterxml'
 }
+
 
 task install(type: Copy) {
     from("$rootDir/build/libs/") {

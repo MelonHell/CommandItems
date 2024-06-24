@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.google.common.base.Preconditions;
-import me.yamakaja.commanditems.util.EnchantmentGlow;
+import me.yamakaja.commanditems.util.GlowUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -86,7 +86,7 @@ public class ItemStackDeserializer extends StdDeserializer<ItemStack> {
         stack.setItemMeta(meta);
 
         if (glow)
-            stack.addEnchantment(EnchantmentGlow.getGlow(), 1);
+            GlowUtil.addGlow(stack);
 
         return stack;
     }

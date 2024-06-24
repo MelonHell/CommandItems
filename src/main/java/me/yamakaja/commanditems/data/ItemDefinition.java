@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Preconditions;
 import de.tr7zw.nbtapi.NBTItem;
 import me.yamakaja.commanditems.data.action.Action;
-import me.yamakaja.commanditems.util.EnchantmentGlow;
+import me.yamakaja.commanditems.util.GlowUtil;
 import me.yamakaja.commanditems.util.HeadUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -71,7 +71,7 @@ public class ItemDefinition {
                 meta.setCustomModelData(customModelData);
 
             if (meta instanceof SkullMeta && !skullTexture.isEmpty()) {
-                HeadUtil.setTexture((SkullMeta) meta, null, skullTexture);
+                HeadUtil.setTexture((SkullMeta) meta, skullTexture);
             }
 
             if (this.type == Material.PLAYER_HEAD && skullUser != null && !skullUser.isEmpty()) {
@@ -95,7 +95,7 @@ public class ItemDefinition {
             nbtItem.applyNBT(stack);
 
             if (glow)
-                stack.addEnchantment(EnchantmentGlow.getGlow(), 1);
+                GlowUtil.addGlow(stack);
 
             return stack;
         }
